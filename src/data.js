@@ -128,7 +128,7 @@ export const listProyek = [
     id: 3,
     gambar: Proyek3,
     nama: "Needle Knight Fichelle",
-    desk: "Needle Knight Fichelle adalah game petualangan side-view 2D bergaya pixel art yang digerakkan oleh sistem quest dinamis.",
+    desk: "Needle Knight Fichelle adalah game petualangan side-view 2D bergaya pixel art dengan sistem quest dinamis.",
     tools: ["Unity", "Visual Studio Code", "Aseprite", "Canva"],
     dad: "400",
     link: "https://drive.google.com/drive/folders/1GCjHSUPqbDsSuKxr_4E4nJkvxpsgMP30?usp=sharing",
