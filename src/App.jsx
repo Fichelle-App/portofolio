@@ -1,9 +1,38 @@
+import { useEffect, useRef } from "react";
 import DataImage from "./data";
 import { listTools, listProyek } from "./data";
 
 function App() {
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const playAudio = async () => {
+      try {
+        await audioRef.current.play();
+      } catch {
+        console.log("Autoplay diblokir browser");
+      }
+    };
+
+    const handleUserInteraction = () => {
+      playAudio();
+
+      window.removeEventListener("click", handleUserInteraction);
+    };
+
+    window.addEventListener("click", handleUserInteraction);
+
+    return () => {
+      window.removeEventListener("click", handleUserInteraction);
+    };
+  }, []);
+
   return (
     <>
+      <audio ref={audioRef} autoPlay loop>
+        <source src="public/assets/music.mp3" type="audio/mp3" />   
+      </audio>
+
       <div
         className="hero grid md:grid-cols-2 items-center pt-10 xl:gap-0 gap-6 grid-cols-1"
         data-aos="fade-up"
