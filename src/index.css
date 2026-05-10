@@ -5,3 +5,44 @@
     font-family: "Poppins", sans-serif;
   }
 }
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  40% {
+    width: 100%;
+  }
+
+  60% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.animate-typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+
+  width: 0;
+  max-width: fit-content;
+
+  border-right: 2px solid #a855f7;
+
+  animation:
+    typing 4s steps(18) infinite,
+    blink 0.8s step-end infinite;
+}
+
