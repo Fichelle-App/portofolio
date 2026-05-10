@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <audio ref={audioRef} autoPlay loop>
-        <source src="public/assets/music.mp3" type="audio/mp3" />   
+        <source src="assets/music.mp3" type="audio/mp3" />   
       </audio>
 
       <div
