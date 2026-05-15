@@ -62,7 +62,7 @@ function App() {
         <div className="absolute top-[18%] right-[8%] animate-float hidden lg:block">
           <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[-8deg] hover:rotate-0 transition-all duration-300">
             <img
-              src="assets/tools/unity.png"
+              src={DataImage.FloatingUnity} 
               alt="Unity"
               className="w-20 h-20 object-contain"
             />
@@ -73,7 +73,7 @@ function App() {
         <div className="absolute bottom-[12%] left-[8%] animate-float2 hidden lg:block">
           <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[8deg] hover:rotate-0 transition-all duration-300">
             <img
-              src="assets/tools/unreal.png"
+              src={DataImage.FloatingUnreal} 
               alt="Unreal Engine"
               className="w-20 h-20 object-contain"
             />
