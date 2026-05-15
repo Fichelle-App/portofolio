@@ -159,10 +159,7 @@ const Navbar = () => {
               key={item.id}
               href={item.link}
               onClick={closeMenu}
-              className={`border-4 border-black rounded-2xl px-5 py-4 font-bold text-black shadow-[5px_5px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all duration-300 ${item.color.replace(
-                "hover:",
-                "bg-"
-              )}`}
+              className={`bg-white border-4 border-black rounded-2xl px-5 py-4 font-bold text-black shadow-[5px_5px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all duration-300 ${item.color}`}
               style={{
                 animation: `slideLeft 0.4s ease forwards`,
                 animationDelay: `${index * 0.1}s`,
