@@ -1,12 +1,10 @@
 import HeroImage from "/assets/main-image.png";
 
-import FloatingUnity from "/assets/tools/Unity.png"; 
-import FloatingUnreal from "/assets/tools/unreal.png";
-
 const Image = {
   HeroImage,
-  FloatingUnity,
-  FloatingUnreal,
+  FloatingUnity: "/assets/tools/Unity.png",
+
+  FloatingUnreal: "/assets/tools/unreal.png",
 };
 
 export default Image;

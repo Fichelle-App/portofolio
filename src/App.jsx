@@ -62,7 +62,7 @@ function App() {
         <div className="absolute top-[18%] right-[8%] animate-float hidden lg:block">
           <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[-8deg] hover:rotate-0 transition-all duration-300">
             <img
-              src={DataImage.FloatingUnity} 
+              src="/portofolio/assets/tools/Unity.png"
               alt="Unity"
               className="w-20 h-20 object-contain"
             />
@@ -73,7 +73,7 @@ function App() {
         <div className="absolute bottom-[12%] left-[8%] animate-float2 hidden lg:block">
           <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[8deg] hover:rotate-0 transition-all duration-300">
             <img
-              src={DataImage.FloatingUnreal} 
+              src="/portofolio/assets/tools/unreal.png"
               alt="Unreal Engine"
               className="w-20 h-20 object-contain"
             />
@@ -88,10 +88,7 @@ function App() {
           className="min-h-screen grid lg:grid-cols-2 gap-14 items-center pt-32 pb-16"
         >
           {/* LEFT */}
-          <div
-            data-aos="fade-right"
-            className="animate-fade-in-up"
-          >
+          <div data-aos="fade-right" className="animate-fade-in-up">
             {/* BADGE */}
             <div className="inline-flex items-center gap-3 mb-8 bg-white border-4 border-black rounded-2xl px-4 py-3 shadow-[6px_6px_0px_#000] -rotate-1 hover:rotate-1 hover:-translate-y-1 transition-all duration-300">
               <img
@@ -228,11 +225,7 @@ function App() {
                 className="group bg-white border-4 border-black rounded-[30px] p-6 shadow-[8px_8px_0px_#000] hover:-translate-y-3 hover:rotate-1 transition-all duration-300"
               >
                 <div className="bg-gray-100 border-4 border-black rounded-2xl p-4 w-fit mb-5 group-hover:rotate-6 group-hover:scale-110 transition-all duration-300">
-                  <img
-                    src={tool.gambar}
-                    alt="Tool"
-                    className="w-14"
-                  />
+                  <img src={tool.gambar} alt="Tool" className="w-14" />
                 </div>
 
                 <h1 className="text-xl font-black uppercase mb-2">
