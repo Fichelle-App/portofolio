@@ -1,96 +1,220 @@
 const Footer = () => {
+  const navLinks = [
+    {
+      name: "Beranda",
+      link: "#beranda",
+    },
+    {
+      name: "Tentang",
+      link: "#tentang",
+    },
+    {
+      name: "Proyek",
+      link: "#proyek",
+    },
+    {
+      name: "Kontak",
+      link: "#kontak",
+    },
+  ];
+
+  const socials = [
+    {
+      icon: "ri-github-fill",
+      link: "https://github.com/Fichelle-App",
+      bg: "bg-white",
+    },
+    {
+      icon: "ri-instagram-fill",
+      link: "https://instagram.com/rmn.arda_",
+      bg: "bg-pink-400",
+    },
+    {
+      icon: "ri-youtube-fill",
+      link: "https://youtube.com/@ardakuahsoto",
+      bg: "bg-red-400",
+    },
+  ];
+
   return (
-    <footer className="mt-32 border-t border-zinc-800 bg-zinc-900/40 backdrop-blur-xl">
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8 py-10">
-        
-        {/* TOP */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
-          
-          {/* LOGO */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-3xl font-black bg-gradient-to-r from-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
-              Portofolio
-            </h1>
+    <footer className="relative mt-32 bg-[#ffde59] border-t-4 border-black overflow-hidden">
+      {/* BACKGROUND PATTERN */}
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_2px,transparent_2px)] [background-size:24px_24px]" />
 
-            <p className="text-zinc-400 mt-3 max-w-[300px] text-sm leading-relaxed">
-              Programmer & Game Developer yang berfokus pada
-              pengembangan game menggunakan Unity.
+      {/* FLOATING SHAPES */}
+      <div className="absolute top-10 left-10 w-16 h-16 bg-pink-400 border-4 border-black rounded-full animate-float hidden lg:block"></div>
+
+      <div className="absolute bottom-10 right-10 w-20 h-20 bg-[#00c2ff] border-4 border-black rotate-12 animate-float2 hidden lg:block"></div>
+
+      <div className="container relative z-10 mx-auto px-6 py-14">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* LEFT */}
+          <div className="max-w-[320px] text-center lg:text-left">
+            {/* LOGO */}
+            <div className="flex items-center justify-center lg:justify-start gap-4 mb-5 group">
+              <div
+                className="
+                  w-16
+                  h-16
+                  bg-pink-400
+                  border-4
+                  border-black
+                  rounded-2xl
+                  flex
+                  items-center
+                  justify-center
+                  text-3xl
+                  shadow-[6px_6px_0px_#000]
+                  rotate-[-6deg]
+                  group-hover:rotate-6
+                  group-hover:-translate-y-2
+                  transition-all
+                  duration-300
+                "
+              >
+                🎮
+              </div>
+
+              <h1
+                className="
+                  text-5xl
+                  font-black
+                  text-black
+                  tracking-tight
+                  group-hover:tracking-wider
+                  transition-all
+                  duration-300
+                "
+              >
+                ROMANSA.
+              </h1>
+            </div>
+
+            <p
+              className="
+                text-black/80
+                font-semibold
+                leading-relaxed
+                text-lg
+                hover:text-black
+                transition-all
+                duration-300
+              "
+            >
+              Programmer & Game Developer yang berfokus pada pengembangan game
+              menggunakan Unity.
             </p>
+
+            {/* BADGE */}
+            <div
+              className="
+                inline-flex
+    items-center
+    gap-2
+    mt-6
+    bg-white
+    border-4
+    border-black
+    rounded-2xl
+    px-4
+    py-2
+    font-black
+    text-black
+    shadow-[5px_5px_0px_#000]
+    rotate-[-2deg]
+    hover:rotate-2
+    hover:-translate-y-1
+    transition-all
+    duration-300
+              "
+            >
+              🚀 OPEN FOR PROJECT
+            </div>
           </div>
 
-          {/* MENU */}
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-7">
-            <a
-              href="#beranda"
-              className="text-zinc-400 hover:text-violet-400 transition-all duration-300"
-            >
-              Beranda
-            </a>
-
-            <a
-              href="#tentang"
-              className="text-zinc-400 hover:text-violet-400 transition-all duration-300"
-            >
-              Tentang
-            </a>
-
-            <a
-              href="#proyek"
-              className="text-zinc-400 hover:text-violet-400 transition-all duration-300"
-            >
-              Proyek
-            </a>
-
-            <a
-              href="#kontak"
-              className="text-zinc-400 hover:text-violet-400 transition-all duration-300"
-            >
-              Kontak
-            </a>
+          {/* CENTER MENU */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            {navLinks.map((item, index) => (
+              <a
+                key={item.name}
+                href={item.link}
+                className="
+                  relative
+                  min-w-[120px]
+                  text-center
+                  bg-white
+                  border-4
+                  border-black
+                  rounded-2xl
+                  px-6
+                  py-3
+                  text-black
+                  font-black
+                  uppercase
+                  shadow-[5px_5px_0px_#000]
+                  hover:translate-x-[3px]
+                  hover:translate-y-[3px]
+                  hover:shadow-[2px_2px_0px_#000]
+                  hover:bg-pink-300
+                  hover:rotate-1
+                  transition-all
+                  duration-300
+                "
+                style={{
+                  animation: `floatMenu 3s ease-in-out infinite`,
+                  animationDelay: `${index * 0.2}s`,
+                }}
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
 
-          {/* SOCIAL */}
+          {/* RIGHT SOCIAL */}
           <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/Fichelle-App"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center hover:bg-violet-600 hover:border-violet-500 hover:-translate-y-1 transition-all duration-300"
-            >
-              <i className="ri-github-fill ri-lg"></i>
-            </a>
+            {socials.map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`
+                  group
+                  relative
+                  w-16
+                  h-16
+                  ${item.bg}
+                  border-4
+                  border-black
+                  rounded-2xl
+                  flex
+                  items-center
+                  justify-center
+                  text-black
+                  shadow-[5px_5px_0px_#000]
+                  hover:translate-x-[3px]
+                  hover:translate-y-[3px]
+                  hover:shadow-[2px_2px_0px_#000]
+                  hover:rotate-6
+                  hover:scale-110
+                  transition-all
+                  duration-300
+                `}
+                style={{
+                  animation: `socialFloat 3s ease-in-out infinite`,
+                  animationDelay: `${index * 0.2}s`,
+                }}
+              >
+                {/* PULSE */}
+                <div className="absolute inset-0 rounded-2xl animate-ping bg-white/20"></div>
 
-            <a
-              href="https://instagram.com/rmn.arda_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center hover:bg-pink-600 hover:border-pink-500 hover:-translate-y-1 transition-all duration-300"
-            >
-              <i className="ri-instagram-fill ri-lg"></i>
-            </a>
-
-            <a
-              href="https://twitter.com/username"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center hover:bg-sky-500 hover:border-sky-400 hover:-translate-y-1 transition-all duration-300"
-            >
-              <i className="ri-twitter-x-fill ri-lg"></i>
-            </a>
-
-            <a
-              href="https://youtube.com/@ardakuahsoto"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center hover:bg-red-600 hover:border-red-500 hover:-translate-y-1 transition-all duration-300"
-            >
-              <i className="ri-youtube-fill ri-lg"></i>
-            </a>
+                <i
+                  className={`${item.icon} ri-xl relative z-10 group-hover:scale-125 transition-all duration-300`}
+                ></i>
+              </a>
+            ))}
           </div>
         </div>
-
-        {/* LINE */}
-        <div className="w-full h-[1px] bg-zinc-800 my-8"></div>
       </div>
     </footer>
   );

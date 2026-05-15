@@ -1,4 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const navLinks = [
+  { id: 1, name: "Beranda", link: "#beranda" },
+  { id: 2, name: "Tentang", link: "#tentang" },
+  { id: 3, name: "Project", link: "#proyek" },
+  { id: 4, name: "Kontak", link: "#kontak" },
+];
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
@@ -6,126 +13,314 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setActive(window.scrollY > 50);
+      setActive(window.scrollY > 30);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    {
-      id: 1,
-      name: "Beranda",
-      link: "#beranda",
-    },
-    {
-      id: 2,
-      name: "Tentang",
-      link: "#tentang",
-    },
-    {
-      id: 3,
-      name: "Proyek",
-      link: "#proyek",
-    },
-    {
-      id: 4,
-      name: "Kontak",
-      link: "#kontak",
-    },
-  ];
+  useEffect(() => {
+    document.body.style.overflow = openMenu ? "hidden" : "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openMenu]);
+
+  const closeMenu = () => setOpenMenu(false);
 
   return (
     <>
-      <div
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          active
-            ? "py-4 bg-zinc-950/70 backdrop-blur-xl border-b border-zinc-800 shadow-lg shadow-black/20"
-            : "py-6 bg-transparent"
-        }`}
+      {/* HEADER */}
+      <header
+        className={`
+          fixed top-0 left-0 w-full z-50
+          transition-all duration-300
+          animate-[slideDown_0.6s_ease]
+          ${
+            active
+              ? "py-4 bg-[#ffde59]/95 backdrop-blur-md border-b-4 border-black shadow-[0_6px_0px_#000]"
+              : "py-5"
+          }
+        `}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between">
-          {/* LOGO */}
-          <div className="logo">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between gap-4">
+            {/* LOGO */}
             <a
               href="#beranda"
-              className="text-2xl md:text-3xl font-black tracking-wide"
+              className="
+                group
+                flex items-center gap-3
+                text-2xl sm:text-3xl
+                font-black
+                tracking-tight
+                text-black
+                whitespace-nowrap
+                transition-all duration-300
+                hover:scale-105
+              "
             >
-              <span className="bg-gradient-to-r from-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
-                Portofolio
+              <div
+                className="
+                  w-11 h-11
+                  bg-pink-400
+                  border-4 border-black
+                  rounded-xl
+                  flex items-center justify-center
+                  shadow-[4px_4px_0px_#000]
+                  rotate-[-6deg]
+                  group-hover:rotate-6
+                  group-hover:-translate-y-1
+                  transition-all duration-300
+                "
+              >
+                🎮
+              </div>
+
+              <span className="group-hover:tracking-wider transition-all duration-300">
+                ROMANSA.
               </span>
             </a>
-          </div>
 
-          {/* MENU DESKTOP */}
-          <ul className="hidden md:flex items-center gap-3 bg-zinc-900/40 border border-zinc-800 backdrop-blur-xl px-3 py-3 rounded-full">
-            {navLinks.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={item.link}
-                  className="px-5 py-3 rounded-full text-zinc-300 hover:text-white hover:bg-violet-600/20 transition-all duration-300 font-medium"
-                >
-                  {item.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+            {/* DESKTOP NAV */}
+            <div className="hidden lg:flex items-center gap-4">
+              <ul
+                className="
+                  flex items-center gap-2
+                  bg-white
+                  border-4 border-black
+                  rounded-2xl
+                  px-3 py-3
+                  shadow-[6px_6px_0px_#000]
+                "
+              >
+                {navLinks.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={item.link}
+                      className="
+                        relative
+                        px-5 py-3
+                        rounded-xl
+                        border-4 border-transparent
+                        hover:border-black
+                        hover:bg-yellow-300
+                        font-bold
+                        text-black
+                        transition-all duration-200
+                        whitespace-nowrap
+                        hover:-translate-y-1
+                      "
+                    >
+                      {item.name}
 
-          {/* BUTTON CONTACT */}
-          <div className="hidden md:block">
-            <a
-              href="#kontak"
-              className="bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-violet-700/20"
+                      {/* UNDERLINE */}
+                      <span
+                        className="
+                          absolute
+                          left-1/2
+                          -translate-x-1/2
+                          bottom-1
+                          w-0
+                          h-[3px]
+                          bg-black
+                          transition-all duration-300
+                          group-hover:w-4/5
+                        "
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <a
+                href="#kontak"
+                className="
+                  neo-button
+                  bg-[#00c2ff]
+                  text-black
+                  px-6 py-3
+                  font-black
+                  whitespace-nowrap
+                  hover:scale-105
+                  animate-pulse
+                "
+              >
+                Let&apos;s Talk
+              </a>
+            </div>
+
+            {/* MOBILE BUTTON */}
+            <button
+              onClick={() => setOpenMenu(!openMenu)}
+              className={`
+                lg:hidden
+                w-12 h-12
+                flex items-center justify-center
+                text-2xl
+                text-black
+                bg-white
+                border-4 border-black
+                rounded-xl
+                shadow-[4px_4px_0px_#000]
+                active:translate-x-[2px]
+                active:translate-y-[2px]
+                active:shadow-[2px_2px_0px_#000]
+                transition-all duration-300
+                hover:rotate-6
+                ${openMenu ? "rotate-90 scale-95" : ""}
+              `}
             >
-              Let&apos;s Talk
-            </a>
+              {openMenu ? (
+                <i className="ri-close-line"></i>
+              ) : (
+                <i className="ri-menu-4-line"></i>
+              )}
+            </button>
           </div>
-
-          {/* HAMBURGER */}
-          <button
-            className="md:hidden text-3xl"
-            onClick={() => setOpenMenu(!openMenu)}
-          >
-            {openMenu ? (
-              <i className="ri-close-line"></i>
-            ) : (
-              <i className="ri-menu-4-line"></i>
-            )}
-          </button>
         </div>
-      </div>
+      </header>
+
+      {/* OVERLAY */}
+      <div
+        onClick={closeMenu}
+        className={`
+          fixed inset-0 z-40 bg-black/40 backdrop-blur-[3px]
+          transition-all duration-300
+          lg:hidden
+          ${
+            openMenu
+              ? "opacity-100 visible"
+              : "opacity-0 invisible"
+          }
+        `}
+      />
 
       {/* MOBILE MENU */}
-      <div
-        className={`fixed top-0 right-0 w-[75%] h-screen bg-zinc-950/95 backdrop-blur-xl z-40 border-l border-zinc-800 transform transition-all duration-500 md:hidden ${
-          openMenu ? "translate-x-0" : "translate-x-full"
-        }`}
+      <aside
+        className={`
+          fixed top-0 right-0 z-50
+          w-[78%] sm:w-[60%]
+          h-screen
+          bg-[#ffde59]
+          border-l-4 border-black
+          shadow-[-8px_0px_0px_#000]
+          transition-all duration-500
+          lg:hidden
+          ${
+            openMenu
+              ? "translate-x-0"
+              : "translate-x-full"
+          }
+        `}
       >
-        <div className="flex flex-col items-start gap-6 p-10 mt-24">
-          {navLinks.map((item) => (
+        {/* MOBILE HEADER */}
+        <div className="flex items-center justify-between p-6 border-b-4 border-black">
+          <div className="flex items-center gap-3">
+            <div
+              className="
+                w-12 h-12
+                bg-pink-400
+                border-4 border-black
+                rounded-xl
+                flex items-center justify-center
+                text-xl
+                shadow-[4px_4px_0px_#000]
+                rotate-[-6deg]
+                animate-bounce
+              "
+            >
+              🎮
+            </div>
+
+            <h1 className="text-2xl font-black text-black">
+              MENU
+            </h1>
+          </div>
+
+          <button
+            onClick={closeMenu}
+            className="
+              w-11 h-11
+              flex items-center justify-center
+              bg-white
+              border-4 border-black
+              rounded-xl
+              text-xl
+              text-black
+              shadow-[4px_4px_0px_#000]
+              active:translate-x-[2px]
+              active:translate-y-[2px]
+              active:shadow-[2px_2px_0px_#000]
+              hover:rotate-12
+              transition-all
+            "
+          >
+            <i className="ri-close-line"></i>
+          </button>
+        </div>
+
+        {/* MENU ITEMS */}
+        <div className="flex flex-col gap-5 p-6">
+          {navLinks.map((item, index) => (
             <a
               key={item.id}
               href={item.link}
-              onClick={() => setOpenMenu(false)}
-              className="text-2xl font-semibold text-zinc-300 hover:text-violet-400 transition-all duration-300"
+              onClick={closeMenu}
+              className="
+                bg-white
+                border-4 border-black
+                rounded-2xl
+                px-5 py-4
+                font-bold
+                text-black
+                shadow-[5px_5px_0px_#000]
+                hover:translate-x-[2px]
+                hover:translate-y-[2px]
+                hover:shadow-[2px_2px_0px_#000]
+                hover:bg-pink-300
+                transition-all duration-300
+              "
+              style={{
+                animation: `slideLeft 0.4s ease forwards`,
+                animationDelay: `${index * 0.1}s`,
+              }}
             >
               {item.name}
             </a>
           ))}
 
+          {/* MOBILE CTA */}
           <a
             href="#kontak"
-            onClick={() => setOpenMenu(false)}
-            className="mt-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-4 rounded-2xl font-semibold w-full text-center"
+            onClick={closeMenu}
+            className="
+              mt-2
+              bg-[#00c2ff]
+              border-4 border-black
+              rounded-2xl
+              px-5 py-4
+              text-center
+              font-black
+              uppercase
+              text-black
+              shadow-[5px_5px_0px_#000]
+              hover:translate-x-[2px]
+              hover:translate-y-[2px]
+              hover:shadow-[2px_2px_0px_#000]
+              hover:scale-[1.02]
+              transition-all duration-300
+              animate-pulse
+            "
           >
-            Hubungi Saya
+            Let&apos;s Talk
           </a>
         </div>
-      </div>
+      </aside>
     </>
   );
 };

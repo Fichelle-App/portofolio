@@ -7,194 +7,205 @@ function App() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-  // AUDIO
-  const playAudio = async () => {
-    try {
-      await audioRef.current.play();
-    } catch {
-      console.log("Autoplay diblokir browser");
+    const playAudio = async () => {
+      try {
+        await audioRef.current.play();
+      } catch {
+        console.log("Autoplay diblokir browser");
+      }
+    };
+
+    const handleUserInteraction = () => {
+      playAudio();
+      window.removeEventListener("click", handleUserInteraction);
+    };
+
+    window.addEventListener("click", handleUserInteraction);
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+      smoothTouch: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     }
-  };
 
-  const handleUserInteraction = () => {
-    playAudio();
-
-    window.removeEventListener("click", handleUserInteraction);
-  };
-
-  window.addEventListener("click", handleUserInteraction);
-
-  // LENIS SMOOTH SCROLL
-  const lenis = new Lenis({
-    duration: 1.2,
-    smoothWheel: true,
-    smoothTouch: true,
-  });
-
-  function raf(time) {
-    lenis.raf(time);
     requestAnimationFrame(raf);
-  }
 
-  requestAnimationFrame(raf);
-
-  return () => {
-    window.removeEventListener("click", handleUserInteraction);
-
-    lenis.destroy();
-  };
-}, []);
+    return () => {
+      window.removeEventListener("click", handleUserInteraction);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <>
-      <audio ref={audioRef} autoPlay loop>
+      {/* <audio ref={audioRef} autoPlay loop>
         <source src="assets/music.mp3" type="audio/mp3" />
-      </audio>
+      </audio> */}
 
       {/* BACKGROUND */}
-      <div className="fixed top-0 left-0 -z-10 w-full h-full bg-[#050505] overflow-hidden">
-        <div className="absolute top-[-120px] left-[-120px] w-[320px] h-[320px] bg-violet-700 rounded-full blur-[120px] opacity-20"></div>
+      <div className="fixed inset-0 -z-10 bg-[#f5f1e8] overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_2px,transparent_2px)] [background-size:24px_24px]" />
 
-        <div className="absolute bottom-[-120px] right-[-120px] w-[320px] h-[320px] bg-fuchsia-700 rounded-full blur-[120px] opacity-20"></div>
+        {/* SHAPES */}
+        <div className="absolute top-20 left-20 w-28 h-28 bg-pink-400 border-4 border-black rounded-full animate-float" />
 
-        <div className="absolute top-[40%] left-[40%] w-[250px] h-[250px] bg-violet-500 rounded-full blur-[150px] opacity-10"></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-yellow-300 border-4 border-black rotate-12 animate-float2" />
+
+        <div className="absolute top-[40%] left-[45%] w-16 h-16 bg-[#00c2ff] border-4 border-black rotate-45 animate-spin-slow hidden lg:block" />
+
+        {/* FLOATING UNITY */}
+        <div className="absolute top-[18%] right-[8%] animate-float hidden lg:block">
+          <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[-8deg] hover:rotate-0 transition-all duration-300">
+            <img
+              src="public/assets/tools/unity.png"
+              alt="Unity"
+              className="w-20 h-20 object-contain"
+            />
+          </div>
+        </div>
+
+        {/* FLOATING UNREAL */}
+        <div className="absolute bottom-[12%] left-[8%] animate-float2 hidden lg:block">
+          <div className="bg-white border-4 border-black rounded-3xl p-5 shadow-[8px_8px_0px_#000] rotate-[8deg] hover:rotate-0 transition-all duration-300">
+            <img
+              src="public/assets/tools/unreal.png"
+              alt="Unreal Engine"
+              className="w-20 h-20 object-contain"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8 text-white overflow-hidden">
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8 text-black overflow-hidden">
         {/* HERO */}
         <section
           id="beranda"
-          className="min-h-screen grid lg:grid-cols-2 gap-14 items-center pt-28 pb-16"
+          className="min-h-screen grid lg:grid-cols-2 gap-14 items-center pt-32 pb-16"
         >
           {/* LEFT */}
           <div
             data-aos="fade-right"
-            data-aos-duration="1200"
-            className="order-2 lg:order-1"
+            className="animate-fade-in-up"
           >
-            {/* TYPING BADGE */}
-            <div className="inline-flex items-center gap-3 mb-7 bg-zinc-900/70 border border-zinc-800 backdrop-blur-xl px-4 py-3 rounded-full shadow-lg shadow-violet-900/10">
+            {/* BADGE */}
+            <div className="inline-flex items-center gap-3 mb-8 bg-white border-4 border-black rounded-2xl px-4 py-3 shadow-[6px_6px_0px_#000] -rotate-1 hover:rotate-1 hover:-translate-y-1 transition-all duration-300">
               <img
                 src={DataImage.HeroImage}
                 alt="Hero"
-                className="w-9 h-9 rounded-full object-cover border border-zinc-700"
+                className="w-10 h-10 rounded-xl border-4 border-black object-cover"
               />
 
-              <div className="text-[12px] sm:text-sm opacity-90 whitespace-nowrap overflow-hidden">
-                <span>"Bukan bug, </span>
+              <div className="flex items-center gap-1 font-bold text-sm whitespace-nowrap">
+                <span>"Bukan bug,</span>
 
-                <span className="animate-typing ml-1">
+                <span className="animate-typing bg-yellow-300 px-1">
                   ini fitur tambahan"
                 </span>
               </div>
             </div>
 
             {/* TITLE */}
-            <h1 className="font-black leading-[1.1] mb-6 text-5xl sm:text-6xl lg:text-7xl">
-              Halo Saya,
-              <span className="block bg-gradient-to-r from-violet-400 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent">
-                Romansa Ardana
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black leading-none uppercase mb-6">
+              Halo, Saya
+              <span className="block w-fit mt-3 bg-pink-400 px-4 border-4 border-black shadow-[8px_8px_0px_#000] rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                Arda!
               </span>
             </h1>
 
             {/* DESC */}
-            <p className="text-zinc-400 leading-relaxed text-base sm:text-lg lg:w-[90%] mb-9">
-              Saya berfokus pada pengembangan
-              game menggunakan Unity serta membangun pengalaman gameplay yang
-              menarik, immersive, dan optimal.
+            <p className="text-lg font-medium leading-relaxed border-l-4 border-black pl-5 mb-10 lg:w-[90%]">
+              Saya berfokus pada pengembangan game menggunakan Unity serta
+              membangun pengalaman gameplay yang menarik, immersive, dan
+              optimal.
             </p>
 
             {/* BUTTON */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap gap-5">
               <a
                 href="#proyek"
-                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 sm:px-7 py-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-violet-700/30"
+                className="bg-[#00c2ff] border-4 border-black px-8 py-4 font-black uppercase rounded-2xl shadow-[6px_6px_0px_#000] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0px_#000] hover:scale-105 transition-all"
               >
                 Lihat Project
               </a>
 
               <a
                 href="#kontak"
-                className="border border-zinc-700 bg-zinc-900/40 backdrop-blur-lg px-6 sm:px-7 py-4 rounded-2xl hover:bg-zinc-800 transition-all duration-300"
+                className="bg-white border-4 border-black px-8 py-4 font-black uppercase rounded-2xl shadow-[6px_6px_0px_#000] hover:bg-yellow-300 hover:scale-105 transition-all"
               >
                 Hubungi Saya
               </a>
             </div>
 
             {/* STATS */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 mt-14">
-              <div className="bg-zinc-900/40 border border-zinc-800 rounded-3xl p-5 backdrop-blur-lg">
-                <h1 className="text-3xl sm:text-4xl font-bold text-violet-400">
-                  3+
-                </h1>
-
-                <p className="text-zinc-400 text-sm sm:text-base">Project</p>
+            <div className="grid grid-cols-3 gap-5 mt-14">
+              <div className="bg-yellow-300 border-4 border-black rounded-3xl p-5 text-center shadow-[6px_6px_0px_#000] hover:-rotate-2 hover:-translate-y-2 transition-all duration-300">
+                <h1 className="text-4xl font-black">3+</h1>
+                <p className="font-bold uppercase">Project</p>
               </div>
 
-              <div className="bg-zinc-900/40 border border-zinc-800 rounded-3xl p-5 backdrop-blur-lg">
-                <h1 className="text-3xl sm:text-4xl font-bold text-violet-400">
-                  1+
-                </h1>
-
-                <p className="text-zinc-400 text-sm sm:text-base">Tahun</p>
+              <div className="bg-[#00c2ff] border-4 border-black rounded-3xl p-5 text-center shadow-[6px_6px_0px_#000] hover:rotate-2 hover:-translate-y-2 transition-all duration-300">
+                <h1 className="text-4xl font-black">1+</h1>
+                <p className="font-bold uppercase">Tahun</p>
               </div>
 
-              <div className="bg-zinc-900/40 border border-zinc-800 rounded-3xl p-5 backdrop-blur-lg">
-                <h1 className="text-2xl sm:text-3xl font-bold text-violet-400">
-                  Unity
-                </h1>
-
-                <p className="text-zinc-400 text-sm sm:text-base">
-                  Developer
-                </p>
+              <div className="bg-green-400 border-4 border-black rounded-3xl p-5 text-center shadow-[6px_6px_0px_#000] hover:scale-105 hover:-translate-y-2 transition-all duration-300">
+                <h1 className="text-2xl font-black uppercase">Unity</h1>
+                <p className="font-bold uppercase">Dev</p>
               </div>
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
+          {/* IMAGE */}
           <div
-            className="relative flex justify-center order-1 lg:order-2"
-            data-aos="fade-left"
-            data-aos-duration="1200"
+            className="relative flex justify-center animate-float"
+            data-aos="zoom-in"
           >
-            <div className="absolute w-[280px] sm:w-[400px] h-[280px] sm:h-[400px] bg-violet-700 rounded-full blur-[120px] opacity-25"></div>
+            <div className="absolute top-6 left-6 w-[260px] sm:w-[350px] lg:w-[420px] h-full bg-pink-400 border-4 border-black rounded-[40px]" />
 
-            <div className="relative group">
-              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-violet-600 to-fuchsia-600 blur-xl opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
+            <img
+              src={DataImage.HeroImage}
+              alt="Hero"
+              className="relative z-10 w-[260px] sm:w-[350px] lg:w-[420px] rounded-[40px] border-4 border-black object-cover hover:-translate-x-3 hover:-translate-y-3 hover:rotate-2 transition-all duration-500"
+            />
 
-              <img
-                src={DataImage.HeroImage}
-                alt="Hero"
-                className="relative z-10 w-[260px] sm:w-[350px] lg:w-[420px] rounded-[35px] border border-zinc-700 object-cover hover:scale-[1.02] transition-all duration-500 shadow-2xl shadow-violet-900/30"
-              />
+            {/* MINI STICKER */}
+            <div className="absolute -bottom-6 -right-2 bg-yellow-300 border-4 border-black rounded-2xl px-4 py-2 font-black rotate-6 shadow-[6px_6px_0px_#000] animate-bounce hidden sm:block">
+              GAME DEV 🎮
             </div>
           </div>
         </section>
 
         {/* ABOUT */}
-        <section
-          id="tentang"
-          className="py-24"
-          data-aos="fade-up"
-          data-aos-duration="1200"
-        >
-          <div className="bg-zinc-900/50 border border-zinc-800 backdrop-blur-xl rounded-[35px] p-7 sm:p-10 lg:p-16">
-            <div className="flex flex-col lg:flex-row gap-10 items-start">
+        <section id="tentang" className="py-24">
+          <div
+            data-aos="fade-up"
+            className="bg-white border-4 border-black rounded-[35px] p-8 lg:p-14 shadow-[10px_10px_0px_#000] relative hover:-translate-y-2 transition-all duration-300"
+          >
+            <div className="absolute -top-5 -right-5 bg-yellow-300 border-4 border-black px-5 py-2 font-black text-xl rotate-6 animate-wiggle">
+              FUN FACT!
+            </div>
+
+            <div className="flex flex-col lg:flex-row gap-10">
               <div className="lg:w-1/3">
-                <h1 className="text-4xl sm:text-5xl font-black leading-tight">
+                <h1 className="text-5xl sm:text-6xl font-black uppercase leading-none">
                   Tentang
-                  <span className="block text-violet-400">Saya</span>
+                  <span className="block bg-[#00c2ff] w-fit px-3 mt-3 border-b-[10px] border-black hover:scale-105 transition-all">
+                    Saya
+                  </span>
                 </h1>
               </div>
 
               <div className="lg:w-2/3">
-                <p className="text-zinc-400 leading-loose text-base sm:text-lg">
+                <p className="bg-gray-100 border-4 border-black rounded-3xl p-6 font-semibold leading-relaxed text-lg hover:bg-yellow-100 transition-all duration-300">
                   Dari dulu saya memang punya ketertarikan besar di dunia
                   programming dan bikin game. Buat saya, game yang bagus itu
                   harus punya gameplay yang seru, sistem yang optimal, dan
-                  visual yang immersive. Karena itu saya selalu mencoba
-                  menggabungkan performa, desain, dan pengalaman bermain agar
-                  project yang dibuat terasa lebih hidup dan menarik.
+                  visual yang immersive.
                 </p>
               </div>
             </div>
@@ -203,39 +214,32 @@ function App() {
 
         {/* TOOLS */}
         <section className="py-24">
-          <div className="mb-14">
-            <h1 className="text-4xl sm:text-5xl font-black mb-4">
-              Tools <span className="text-violet-400">Stack</span>
+          <div className="text-center mb-16">
+            <h1 className="inline-block bg-green-400 border-4 border-black px-6 py-3 text-5xl font-black uppercase rounded-3xl shadow-[8px_8px_0px_#000] -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+              Tools Stack
             </h1>
-
-            <p className="text-zinc-400 text-base sm:text-lg">
-              Tools yang biasa saya gunakan untuk development.
-            </p>
           </div>
 
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {listTools.map((tool) => (
               <div
                 key={tool.id}
-                className="group bg-zinc-900/40 border border-zinc-800 hover:border-violet-500 p-5 rounded-[28px] backdrop-blur-lg transition-all duration-300 hover:-translate-y-2"
-                data-aos="zoom-in"
-                data-aos-duration="1000"
+                data-aos="zoom-in-up"
+                className="group bg-white border-4 border-black rounded-[30px] p-6 shadow-[8px_8px_0px_#000] hover:-translate-y-3 hover:rotate-1 transition-all duration-300"
               >
-                <div className="bg-zinc-800/80 w-fit p-4 rounded-2xl mb-5 group-hover:bg-violet-600/20 transition-all duration-300">
+                <div className="bg-gray-100 border-4 border-black rounded-2xl p-4 w-fit mb-5 group-hover:rotate-6 group-hover:scale-110 transition-all duration-300">
                   <img
                     src={tool.gambar}
                     alt="Tool"
-                    className="w-12 sm:w-14 group-hover:scale-110 transition-all duration-300"
+                    className="w-14"
                   />
                 </div>
 
-                <h1 className="text-lg sm:text-xl font-bold mb-2">
+                <h1 className="text-xl font-black uppercase mb-2">
                   {tool.nama}
                 </h1>
 
-                <p className="text-zinc-400 text-sm sm:text-base">
-                  {tool.ket}
-                </p>
+                <p className="font-medium">{tool.ket}</p>
               </div>
             ))}
           </div>
@@ -244,56 +248,55 @@ function App() {
         {/* PROJECT */}
         <section id="proyek" className="py-24">
           <div className="text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl font-black mb-4">
-              My <span className="text-violet-400">Projects</span>
+            <h1 className="inline-block bg-pink-400 border-4 border-black px-6 py-3 text-5xl font-black uppercase rounded-3xl shadow-[8px_8px_0px_#000] rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+              My Projects
             </h1>
-
-            <p className="text-zinc-400 text-base sm:text-lg">
-              Beberapa project yang telah saya kerjakan.
-            </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-7">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {listProyek.map((proyek) => (
               <div
                 key={proyek.id}
-                className="bg-zinc-900/50 border border-zinc-800 rounded-[30px] overflow-hidden backdrop-blur-lg hover:-translate-y-3 hover:border-violet-500 transition-all duration-500"
                 data-aos="fade-up"
-                data-aos-duration="1200"
+                className="group bg-white border-4 border-black rounded-[32px] overflow-hidden shadow-[8px_8px_0px_#000] hover:-translate-y-3 hover:rotate-1 transition-all duration-300 flex flex-col"
               >
-                <div className="overflow-hidden">
+                {/* IMAGE */}
+                <div className="border-b-4 border-black bg-gray-200 overflow-hidden">
                   <img
                     src={proyek.gambar}
                     alt="Project"
-                    className="hover:scale-110 transition-all duration-700 w-full"
+                    className="w-full h-52 object-cover group-hover:scale-110 transition-all duration-500"
                   />
                 </div>
 
-                <div className="p-6">
-                  <h1 className="text-2xl font-bold mb-4">
+                {/* CONTENT */}
+                <div className="p-6 flex flex-col flex-grow">
+                  <h1 className="text-2xl font-black uppercase mb-4 bg-yellow-300 border-4 border-black px-3 py-1 w-fit rounded-xl group-hover:rotate-1 transition-all duration-300">
                     {proyek.nama}
                   </h1>
 
-                  <p className="text-zinc-400 leading-loose mb-5 text-sm sm:text-base">
+                  <p className="font-medium leading-relaxed mb-6 flex-grow">
                     {proyek.desk}
                   </p>
 
+                  {/* TAG */}
                   <div className="flex flex-wrap gap-2 mb-7">
                     {proyek.tools.map((tool, index) => (
                       <span
                         key={index}
-                        className="px-4 py-2 rounded-full bg-violet-600/20 border border-violet-500/30 text-sm"
+                        className="px-3 py-2 bg-[#00c2ff] border-2 border-black rounded-xl font-bold text-sm shadow-[3px_3px_0px_#000] hover:-translate-y-1 transition-all"
                       >
                         {tool}
                       </span>
                     ))}
                   </div>
 
+                  {/* BUTTON */}
                   <a
                     href={proyek.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-center bg-gradient-to-r from-violet-600 to-fuchsia-600 py-4 rounded-2xl font-semibold hover:opacity-90 transition-all duration-300"
+                    className="bg-black text-white border-4 border-black rounded-2xl py-4 text-center font-black uppercase shadow-[6px_6px_0px_#000] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0px_#000] hover:bg-[#222] transition-all"
                   >
                     Lihat Project
                   </a>
@@ -305,50 +308,51 @@ function App() {
 
         {/* CONTACT */}
         <section id="kontak" className="py-24">
-          <div className="text-center mb-14">
-            <h1 className="text-4xl sm:text-5xl font-black mb-4">
-              Hubungi <span className="text-violet-400">Saya</span>
+          <div className="text-center mb-16">
+            <h1 className="inline-block bg-[#00c2ff] border-4 border-black px-6 py-3 rounded-3xl text-5xl sm:text-6xl font-black uppercase shadow-[8px_8px_0px_#000] -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+              Hubungi Saya
             </h1>
-
-            <p className="text-zinc-400 text-base sm:text-lg">
-              Mari terhubung dengan saya.
-            </p>
           </div>
 
           <form
             action="https://formsubmit.co/romansaardanap@gmail.com"
             method="POST"
-            className="max-w-3xl mx-auto bg-zinc-900/50 border border-zinc-800 backdrop-blur-xl p-6 sm:p-10 rounded-[35px]"
+            data-aos="zoom-in"
+            className="max-w-3xl mx-auto bg-yellow-300 border-4 border-black rounded-[35px] p-8 sm:p-12 shadow-[10px_10px_0px_#000] relative hover:-translate-y-2 transition-all duration-300"
           >
+            <div className="absolute -top-6 -left-6 bg-pink-400 border-4 border-black w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-[6px_6px_0px_#000] rotate-12 animate-bounce">
+              📩
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <input
                 type="text"
                 name="nama"
-                placeholder="Nama Lengkap"
-                className="bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:border-violet-500 transition-all duration-300"
+                placeholder="NAMA LENGKAP"
                 required
+                className="bg-white border-4 border-black rounded-2xl p-4 font-bold outline-none shadow-[5px_5px_0px_#000] focus:bg-pink-200 focus:-translate-y-1 transition-all"
               />
 
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
-                className="bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:border-violet-500 transition-all duration-300"
+                placeholder="EMAIL"
                 required
+                className="bg-white border-4 border-black rounded-2xl p-4 font-bold outline-none shadow-[5px_5px_0px_#000] focus:bg-blue-200 focus:-translate-y-1 transition-all"
               />
             </div>
 
             <textarea
               name="pesan"
               rows="7"
-              placeholder="Pesan..."
-              className="w-full bg-zinc-800 border border-zinc-700 p-4 rounded-2xl outline-none focus:border-violet-500 mb-6 transition-all duration-300"
+              placeholder="TULIS PESAN..."
               required
-            ></textarea>
+              className="w-full bg-white border-4 border-black rounded-2xl p-5 font-bold outline-none shadow-[5px_5px_0px_#000] focus:bg-green-200 focus:-translate-y-1 transition-all mb-8"
+            />
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 py-4 rounded-2xl font-semibold hover:scale-[1.02] transition-all duration-300"
+              className="w-full bg-black text-white border-4 border-black rounded-2xl py-5 font-black text-xl uppercase shadow-[8px_8px_0px_#000] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0px_#000] hover:bg-[#222] transition-all"
             >
               Kirim Pesan
             </button>

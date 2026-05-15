@@ -1,42 +1,91 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const PreLoader = () => {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+
+        return prev + 5;
+      });
+    }, 100);
+
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   }, []);
 
+  if (!loading) return null;
+
   return (
-    loading && (
-      <div className="w-screen h-screen fixed top-0 left-0 flex items-center justify-center bg-black z-50">
-        <div role="status">
-          <svg
-            aria-hidden="true"
-            className="inline w-10 h-10 text-zinc-600 animate-spin fill-violet-600"
-            viewBox="0 0 100 101"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-              fill="currentColor"
-            />
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#f5f1e8] overflow-hidden">
+      {/* BACKGROUND PATTERN */}
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#000_2px,transparent_2px)] [background-size:24px_24px]" />
 
-            <path
-              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-              fill="currentFill"
-            />
-          </svg>
+      {/* FLOATING SHAPES */}
+      <div className="absolute top-20 left-20 w-24 h-24 bg-pink-400 border-4 border-black rounded-full animate-float" />
 
-          <span className="sr-only">Loading...</span>
+      <div className="absolute bottom-20 right-20 w-32 h-32 bg-[#00c2ff] border-4 border-black rotate-12 animate-float2" />
+
+      {/* CARD */}
+      <div className="relative w-[90%] max-w-md bg-yellow-300 border-4 border-black rounded-[35px] p-8 shadow-[12px_12px_0px_#000]">
+        {/* MINI BADGE */}
+        <div className="absolute -top-5 -right-5 bg-pink-400 border-4 border-black px-4 py-2 rounded-2xl font-black text-sm text-black rotate-6 shadow-[4px_4px_0px_#000]">
+          PLEASE WAIT
+        </div>
+
+        {/* TITLE */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl sm:text-5xl font-black uppercase leading-none text-[#111]">
+            Loading
+          </h1>
+
+          <p className="font-bold mt-3 text-lg text-[#222]">
+            Menyiapkan Portfolio...
+          </p>
+        </div>
+
+        {/* LOADING BAR */}
+        <div className="bg-white border-4 border-black rounded-2xl p-2 shadow-[6px_6px_0px_#000] mb-5">
+          <div
+            className="h-6 bg-[#00c2ff] border-2 border-black rounded-xl transition-all duration-100"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* PERCENT */}
+        <div className="flex items-center justify-between font-black text-lg text-[#111]">
+          <span>Loading Assets...</span>
+          <span>{progress}%</span>
+        </div>
+
+        {/* DOTS */}
+        <div className="flex justify-center gap-3 mt-8">
+          <div className="w-5 h-5 bg-black rounded-full animate-bounce" />
+
+          <div
+            className="w-5 h-5 bg-black rounded-full animate-bounce"
+            style={{ animationDelay: "0.2s" }}
+          />
+
+          <div
+            className="w-5 h-5 bg-black rounded-full animate-bounce"
+            style={{ animationDelay: "0.4s" }}
+          />
         </div>
       </div>
-    )
+    </div>
   );
 };
 
